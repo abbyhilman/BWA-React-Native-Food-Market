@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Logo} from '../../assets';
+// import {HouseAnimation, Logo} from '../../assets';
+import LottieView from 'lottie-react-native';
 import {getData} from '../../utils';
 
 const SplashScreen = ({navigation}) => {
@@ -14,11 +15,16 @@ const SplashScreen = ({navigation}) => {
           navigation.replace('SignIn');
         }
       });
-    }, 2000);
+    }, 2500);
   }, [navigation]);
   return (
     <View style={styles.container}>
-      <Logo />
+      <LottieView
+        source={require('../../assets/Animation/house-animation.json')}
+        autoPlay
+        loop
+        style={styles.animation}
+      />
       <Text style={styles.titleSplash}>FoodMarket</Text>
     </View>
   );
@@ -38,5 +44,10 @@ const styles = StyleSheet.create({
     color: '#020202',
     marginVertical: 38,
     fontFamily: 'Poppins-Medium',
+  },
+  animation: {
+    width: 200,
+    height: 200,
+    position: 'relative',
   },
 });

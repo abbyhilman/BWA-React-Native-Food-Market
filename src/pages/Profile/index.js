@@ -7,11 +7,13 @@ import {ProfileTabSection} from '../../components';
 import {API_HOST} from '../../config';
 import {getData, showMessage, storeData} from '../../utils';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const [userProfile, setUserProfile] = useState({});
   useEffect(() => {
-    updateUserProfile();
-  }, []);
+    navigation.addListener('focus', () => {
+      updateUserProfile();
+    });
+  }, [navigation]);
 
   const updateUserProfile = () => {
     getData('userProfile').then((res) => {

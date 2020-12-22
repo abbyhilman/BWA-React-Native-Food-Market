@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Button, Gap, Header, TextInput} from '../../components';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {showMessage, useForm} from '../../utils';
 import {launchImageLibrary} from 'react-native-image-picker';
 
@@ -45,7 +45,7 @@ const SignUp = ({navigation}) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView contentContainerStyle={styles.scroll}>
       <View style={styles.page}>
         <Header
           title="Sign Up"
@@ -139,4 +139,5 @@ const styles = StyleSheet.create({
     color: '#8D92A3',
     textAlign: 'center',
   },
+  scroll: {flexGrow: 1},
 });

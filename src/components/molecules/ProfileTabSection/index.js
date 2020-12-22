@@ -44,7 +44,10 @@ const Account = () => {
   };
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListMenu text="Edit Profile" onPress={() => {}} />
+      <ItemListMenu
+        text="Edit Profile"
+        onPress={() => navigation.navigate('EditProfile')}
+      />
       <ItemListMenu text="Home Address" onPress={() => {}} />
       <ItemListMenu text="Security" onPress={() => {}} />
       <ItemListMenu text="Payments" onPress={() => {}} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Empty_Order} from '../../../assets';
+import LottieView from 'lottie-react-native';
 import {Button, Gap} from '../../atoms';
 import {useNavigation} from '@react-navigation/native';
 
@@ -8,7 +8,12 @@ const EmptyOrder = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.page}>
-      <Empty_Order />
+      <LottieView
+        source={require('../../../assets/Animation/order-ready.json')}
+        autoPlay
+        loop
+        style={styles.animation}
+      />
       <Gap height={30} />
       <Text style={styles.title}>Ouch! Hungry</Text>
       <Gap height={6} />
@@ -47,5 +52,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     paddingHorizontal: 80,
+  },
+  animation: {
+    width: 200,
+    height: 200,
+    position: 'relative',
   },
 });

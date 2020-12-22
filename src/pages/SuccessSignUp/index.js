@@ -1,12 +1,19 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Success_signUp} from '../../assets';
 import {Button, Gap} from '../../components';
+import LottieView from 'lottie-react-native';
+import {Success_signUp} from '../../assets';
 
 const SuccessSignUp = ({navigation}) => {
   return (
     <View style={styles.page}>
       <Success_signUp />
+      <LottieView
+        source={require('../../assets/Animation/10086-well-done.json')}
+        autoPlay
+        loop
+        style={styles.animation}
+      />
       <Gap height={30} />
       <Text style={styles.title}>Yeay! Completed</Text>
       <Gap height={6} />
@@ -47,5 +54,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     paddingHorizontal: 80,
+  },
+  animation: {
+    width: 200,
+    height: 200,
+    position: 'absolute',
+    marginVertical: -50,
   },
 });

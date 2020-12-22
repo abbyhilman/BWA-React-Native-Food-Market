@@ -1,12 +1,17 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Success_Order} from '../../assets';
 import {Button, Gap} from '../../components';
+import LottieView from 'lottie-react-native';
 
 const SuccessOrder = ({navigation}) => {
   return (
     <View style={styles.page}>
-      <Success_Order />
+      <LottieView
+        source={require('../../assets/Animation/21653-delivery-guy-out-for-delivery.json')}
+        autoPlay
+        loop
+        style={styles.animation}
+      />
       <Gap height={30} />
       <Text style={styles.title}>You’ve Made Order</Text>
       <Gap height={6} />
@@ -54,5 +59,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     paddingHorizontal: 80,
+  },
+  animation: {
+    width: 200,
+    height: 200,
+    position: 'relative',
   },
 });
