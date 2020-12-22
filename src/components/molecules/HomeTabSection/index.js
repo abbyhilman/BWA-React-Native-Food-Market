@@ -6,24 +6,14 @@ import {ItemListFood} from '..';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFoodDataByTypes} from '../../../redux/action/home';
+import {FoodDummy} from '../../../assets';
 
 const renderTabBar = (props) => (
   <TabBar
     {...props}
-    indicatorStyle={{
-      backgroundColor: '#020202',
-      height: 3,
-      width: '15%',
-      marginLeft: '3%',
-    }}
-    style={{
-      backgroundColor: 'white',
-      elevation: 0,
-      shadowOpacity: 0,
-      borderBottomColor: '#F2F2F2',
-      borderBottomWidth: 1,
-    }}
-    tabStyle={{width: 'auto'}}
+    indicatorStyle={styles.indicator}
+    style={styles.TabBar}
+    tabStyle={styles.tabStyle}
     renderLabel={({route, focused}) => (
       <Text
         style={{
@@ -42,7 +32,7 @@ const NewTaste = () => {
   const {newTaste} = useSelector((state) => state.homeReducer);
   useEffect(() => {
     dispatch(getFoodDataByTypes('new_food'));
-  }, []);
+  }, [dispatch]);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {newTaste.map((item) => {
@@ -52,7 +42,8 @@ const NewTaste = () => {
             type="product"
             name={item.name}
             price={item.price}
-            image={{uri: item.picturePath}}
+            // image={{uri: item.picturePath}}
+            image={FoodDummy}
             rating={item.rate}
             onPress={() => navigation.navigate('FoodDetail', item)}
           />
@@ -68,7 +59,7 @@ const Popular = () => {
   const {popular} = useSelector((state) => state.homeReducer);
   useEffect(() => {
     dispatch(getFoodDataByTypes('popular'));
-  }, []);
+  }, [dispatch]);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {popular.map((item) => {
@@ -78,7 +69,8 @@ const Popular = () => {
             type="product"
             name={item.name}
             price={item.price}
-            image={{uri: item.picturePath}}
+            // image={{uri: item.picturePath}}
+            image={FoodDummy}
             rating={item.rate}
             onPress={() => navigation.navigate('FoodDetail', item)}
           />
@@ -93,7 +85,7 @@ const Recommended = () => {
   const {recommended} = useSelector((state) => state.homeReducer);
   useEffect(() => {
     dispatch(getFoodDataByTypes('recommended'));
-  }, []);
+  }, [dispatch]);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {recommended.map((item) => {
@@ -103,7 +95,8 @@ const Recommended = () => {
             type="product"
             name={item.name}
             price={item.price}
-            image={{uri: item.picturePath}}
+            // image={{uri: item.picturePath}}
+            image={FoodDummy}
             rating={item.rate}
             onPress={() => navigation.navigate('FoodDetail', item)}
           />
@@ -142,4 +135,19 @@ const HomeTabSection = () => {
 
 export default HomeTabSection;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  indicator: {
+    backgroundColor: '#020202',
+    height: 3,
+    width: '15%',
+    marginLeft: '3%',
+  },
+  TabBar: {
+    backgroundColor: 'white',
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomColor: '#F2F2F2',
+    borderBottomWidth: 1,
+  },
+  tabStyle: {width: 'auto'},
+});

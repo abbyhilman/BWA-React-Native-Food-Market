@@ -5,7 +5,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {FoodDummy} from '../../assets';
 import {Button, Gap, Header, ItemListFood, ItemValue} from '../../components';
 import {API_HOST} from '../../config';
-import {getData} from '../../utils';
+import {getData, showMessage} from '../../utils';
 
 const OrderDetail = ({navigation, route}) => {
   const order = route.params;
@@ -21,14 +21,15 @@ const OrderDetail = ({navigation, route}) => {
         },
       })
         .then((res) => {
-          console.log('succes cancel order: ', res);
+          //console.log('succes cancel order: ', res);
           navigation.reset({
             index: 0,
             routes: [{name: 'MainApp'}],
           });
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
+          showMessage(err?.response?.message || 'Terjadi Kesalahan');
         });
     });
   };

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Number, Rating} from '..';
@@ -61,7 +62,7 @@ const ItemListFood = ({
         );
       case 'past-orders':
         // item past-orders
-        var formatedDate = new Date(date).toDateString();
+        var formatedDate = moment.unix(date).format('MMM D Y, h:mm a');
         return (
           <>
             <View style={styles.content}>

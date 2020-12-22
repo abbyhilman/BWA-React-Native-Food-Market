@@ -7,7 +7,7 @@ const SplashScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
       getData('token').then((res) => {
-        console.log('token: ', res);
+        //console.log('token: ', res);
         if (res) {
           navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
         } else {
@@ -15,7 +15,7 @@ const SplashScreen = ({navigation}) => {
         }
       });
     }, 2000);
-  }, []);
+  }, [navigation]);
   return (
     <View style={styles.container}>
       <Logo />

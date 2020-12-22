@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import {API_HOST} from '../../config';
+import {showMessage} from '../../utils';
 
 export const getFoodData = () => (dispatch) => {
   Axios.get(`${API_HOST.url}/food`)
@@ -8,14 +9,14 @@ export const getFoodData = () => (dispatch) => {
       dispatch({type: 'SET_FOOD', value: res.data.data.data});
     })
     .catch((err) => {
-      console.log('err: ', err);
+      showMessage(err?.response?.message || 'Terjadi Kesalahan');
     });
 };
 
 export const getFoodDataByTypes = (types) => (dispatch) => {
   Axios.get(`${API_HOST.url}/food?types=${types}`)
     .then((res) => {
-      console.log('res food: ', res.data.data.data);
+      //console.log('res food: ', res.data.data.data);
       if (types === 'new_food') {
         dispatch({type: 'SET_NEW_TASTE', value: res.data.data.data});
       }
@@ -27,6 +28,6 @@ export const getFoodDataByTypes = (types) => (dispatch) => {
       }
     })
     .catch((err) => {
-      console.log('err: ', err);
+      showMessage(err?.response?.message || 'Terjadi Kesalahan');
     });
 };

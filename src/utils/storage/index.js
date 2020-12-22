@@ -13,7 +13,6 @@ export const storeData = async (storageKey, value) => {
 export const getData = async (storageKey) => {
   try {
     const jsonValue = await AsyncStorage.getItem(storageKey);
-    console.log(jsonValue);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     showMessage('Gagal mengambil data dari localstorage');

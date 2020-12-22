@@ -6,13 +6,12 @@ import {EmptyOrder, Header, OrderTabSection} from '../../components';
 import {getOrders} from '../../redux/action';
 
 const Order = () => {
-  const [isEmpty] = useState(false);
   const dispatch = useDispatch();
   const {orders} = useSelector((state) => state.orderReducer);
 
   useEffect(() => {
     dispatch(getOrders());
-  }, []);
+  }, [dispatch]);
   return (
     <View style={styles.page}>
       {orders.length < 1 ? (

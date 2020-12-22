@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, Dimensions, RefreshControl} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {ItemListFood} from '..';
-import {FoodDummy, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
+import {FoodDummy} from '../../../assets';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getInProgress, getPastOrders} from '../../../redux/action';
@@ -45,7 +45,7 @@ const InProgress = () => {
 
   useEffect(() => {
     dispatch(getInProgress());
-  }, []);
+  }, [dispatch]);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -63,7 +63,8 @@ const InProgress = () => {
           return (
             <ItemListFood
               key={order.id}
-              image={{uri: order.food.picturePath}}
+              // image={{uri: order.food.picturePath}}
+              image={FoodDummy}
               type="in-progress"
               price={order.total}
               items={order.quantity}
@@ -84,7 +85,7 @@ const PastOrders = () => {
   const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     dispatch(getPastOrders());
-  }, []);
+  }, [dispatch]);
   const onRefresh = () => {
     setRefreshing(true);
     dispatch(getPastOrders());
@@ -106,7 +107,8 @@ const PastOrders = () => {
               price={order.total}
               name={order.food.name}
               items={order.quantity}
-              image={{uri: order.food.picturePath}}
+              //image={{uri: order.food.picturePath}}
+              image={FoodDummy}
               onPress={() => navigation.navigate('OrderDetail', order)}
             />
           );

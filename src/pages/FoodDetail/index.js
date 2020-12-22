@@ -54,7 +54,7 @@ const FoodDetail = ({navigation, route}) => {
       },
       userProfile,
     };
-    console.log('data for checkout', JSON.stringify(data, null, 4));
+    //console.log('data for checkout', JSON.stringify(data, null, 4));
     navigation.navigate('OrderSummary', data);
   };
   return (

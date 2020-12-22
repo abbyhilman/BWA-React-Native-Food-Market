@@ -21,7 +21,7 @@ const SignUpAddress = ({navigation}) => {
       ...form,
       ...registerReducer,
     };
-    console.log('data regis', JSON.stringify(data, null, 4));
+    //console.log('data regis', JSON.stringify(data, null, 4));
     dispatch(setLoading(true));
     dispatch(signUpAction(data, photoReducer, navigation));
   };

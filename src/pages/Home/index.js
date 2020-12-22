@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
+import {FoodDummy} from '../../assets';
 import {Gap, Foodcard, HomeTabSection, HomeProfile} from '../../components';
 import {getFoodData} from '../../redux/action';
 
@@ -11,7 +12,7 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getFoodData());
-  }, []);
+  }, [dispatch]);
   return (
     <View style={styles.page}>
       <HomeProfile />
@@ -23,7 +24,8 @@ const Home = ({navigation}) => {
               return (
                 <Foodcard
                   key={itemFood.id}
-                  image={{uri: itemFood.picturePath}}
+                  //image={{uri: itemFood.picturePath}}
+                  image={FoodDummy}
                   text={itemFood.name}
                   rating={itemFood.rate}
                   onPress={() => navigation.navigate('FoodDetail', itemFood)}

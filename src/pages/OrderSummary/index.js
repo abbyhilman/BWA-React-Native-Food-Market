@@ -12,7 +12,7 @@ import {
   Loading,
 } from '../../components';
 import {API_HOST} from '../../config';
-import {getData} from '../../utils';
+import {getData, showMessage} from '../../utils';
 import {WebView} from 'react-native-webview';
 import {setLoading} from '../../redux/action/global';
 
@@ -38,20 +38,20 @@ const OrderSummary = ({navigation, route}) => {
         },
       })
         .then((res) => {
-          console.log('chechkout success: ', JSON.stringify(res.data, null, 4));
+          //console.log('chechkout success: ', JSON.stringify(res.data, null, 4));
           setIsPaymentOpen(true);
           dispatch(setLoading(false));
           setPaymentURL(res.data.data.payment_url);
         })
         .catch((err) => {
-          console.log('err', err);
+          showMessage(err?.response?.message || 'Terjadi Kesalahan');
           dispatch(setLoading(false));
         });
     });
   };
 
   const onNavChange = (state) => {
-    console.log('nav', state);
+    //console.log('nav', state);
     //const urlSuccess = 'http://aa44934e770b.ngrok.io/foodmarket_react_native/public/midtrans/success?order_id=9&status_code=201&transaction_status=pending';
     const titleWeb = 'Laravel';
     if (state.title === titleWeb) {

@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import {API_HOST} from '../../config';
-import {getData} from '../../utils';
+import {getData, showMessage} from '../../utils';
 
 export const getOrders = () => (dispatch) => {
   getData('token').then((resToken) => {
@@ -13,7 +13,7 @@ export const getOrders = () => (dispatch) => {
         dispatch({type: 'SET_ORDER', value: res.data.data.data});
       })
       .catch((err) => {
-        console.log('get err orders: ', err);
+        showMessage(err?.response?.message || 'Terjadi Kesalahan');
       });
   });
 };
@@ -49,7 +49,7 @@ export const getInProgress = () => (dispatch) => {
         }),
       )
       .catch((err) => {
-        console.log('get err on progress: ', err);
+        showMessage(err?.response?.message || 'Terjadi Kesalahan');
       });
   });
 };
@@ -79,7 +79,7 @@ export const getPastOrders = () => (dispatch) => {
         }),
       )
       .catch((err) => {
-        console.log('get err past orders: ', err);
+        showMessage(err?.response?.message || 'Terjadi Kesalahan');
       });
   });
 };

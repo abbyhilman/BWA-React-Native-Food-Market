@@ -8,7 +8,6 @@ export const signUpAction = (dataRegister, photoReducer, navigation) => (
 ) => {
   Axios.post(`${API_HOST.url}/register`, dataRegister)
     .then((res) => {
-      console.log('register success', JSON.stringify(res, null, 4));
       const profile = res.data.data.user;
       const token = `${res.data.data.token_type} ${res.data.data.access_token}`;
 
@@ -30,7 +29,9 @@ export const signUpAction = (dataRegister, photoReducer, navigation) => (
             //console.log('photo success', JSON.stringify(res, null, 4));
           })
           .catch((errUpload) => {
-            showMessage('Upload photo tidak berhasil');
+            showMessage(
+              errUpload?.response?.message || 'Upload photo tidak berhasil',
+            );
             navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
           });
       } else {

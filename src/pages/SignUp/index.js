@@ -25,7 +25,6 @@ const SignUp = ({navigation}) => {
     launchImageLibrary(
       {mediaType: 'photo', maxWidth: 200, maxHeight: 200, quality: 0.5},
       (response) => {
-        console.log('Response = ', response);
         if (response.didCancel || response.error) {
           showMessage('Anda tidak memilih photo');
         } else {
@@ -37,7 +36,7 @@ const SignUp = ({navigation}) => {
           };
 
           setPhoto(source);
-          console.log('dataImage = ', dataImage);
+          //console.log('dataImage = ', dataImage);
           dispatch({type: 'SET_PHOTO', value: dataImage});
           dispatch({type: 'SET_UPLOAD_STATUS', value: true});
         }
