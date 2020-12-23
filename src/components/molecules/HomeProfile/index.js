@@ -10,9 +10,6 @@ const HomeProfile = () => {
   useEffect(() => {
     navigation.addListener('focus', () => {
       getData('userProfile').then((res) => {
-        if (res.profile_photo_url === 'null') {
-          setPhoto(Picture);
-        }
         setPhoto({uri: res.profile_photo_url});
       });
     });

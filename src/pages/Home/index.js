@@ -4,13 +4,14 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {FoodDummy} from '../../assets';
 import {Gap, Foodcard, HomeTabSection, HomeProfile} from '../../components';
-import {getFoodData} from '../../redux/action';
+import {getFoodData, setLoading} from '../../redux/action';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {food} = useSelector((state) => state.homeReducer);
 
   useEffect(() => {
+    dispatch(setLoading(true));
     dispatch(getFoodData());
   }, [dispatch]);
   return (
@@ -24,8 +25,8 @@ const Home = ({navigation}) => {
               return (
                 <Foodcard
                   key={itemFood.id}
-                  //image={{uri: itemFood.picturePath}}
-                  image={FoodDummy}
+                  image={{uri: itemFood.picturePath}}
+                  //image={FoodDummy}
                   text={itemFood.name}
                   rating={itemFood.rate}
                   onPress={() => navigation.navigate('FoodDetail', itemFood)}

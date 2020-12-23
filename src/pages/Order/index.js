@@ -3,13 +3,14 @@ import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {EmptyOrder, Header, OrderTabSection} from '../../components';
-import {getOrders} from '../../redux/action';
+import {getOrders, setLoading} from '../../redux/action';
 
 const Order = () => {
   const dispatch = useDispatch();
   const {orders} = useSelector((state) => state.orderReducer);
 
   useEffect(() => {
+    dispatch(setLoading(true));
     dispatch(getOrders());
   }, [dispatch]);
   return (

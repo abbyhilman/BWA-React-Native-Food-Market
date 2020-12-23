@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import {FoodDummy, IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../components';
 import {getData} from '../../utils';
@@ -67,18 +68,21 @@ const FoodDetail = ({navigation, route}) => {
         </TouchableOpacity>
       </ImageBackground>
       <View style={styles.content}>
-        <View style={styles.mainContent}>
-          <View style={styles.productContainer}>
-            <View>
-              <Text styles={styles.title}>{name}</Text>
-              <Rating number={rate} />
+        <ScrollView>
+          <View style={styles.mainContent}>
+            <View style={styles.productContainer}>
+              <View>
+                <Text styles={styles.title}>{name}</Text>
+                <Rating number={rate} />
+              </View>
+              <Counter onValueChange={onCounterChange} />
             </View>
-            <Counter onValueChange={onCounterChange} />
+            <Text style={styles.desc}>{description}</Text>
+            <Text style={styles.label}>Ingredients:</Text>
+            <Text style={styles.desc}>{ingredients}</Text>
           </View>
-          <Text style={styles.desc}>{description}</Text>
-          <Text style={styles.label}>Ingredients:</Text>
-          <Text style={styles.desc}>{ingredients}</Text>
-        </View>
+        </ScrollView>
+
         <View style={styles.footer}>
           <View style={styles.priceContainer}>
             <Text style={styles.labelTotal}>Total Price:</Text>

@@ -51,7 +51,7 @@ const Profile = ({navigation}) => {
             })
               .then((res) => {
                 getData('userProfile').then((resUser) => {
-                  resUser.profile_photo_url = `http://bb6bc0b12621.ngrok.io/foodmarket_react_native/public/storage/${res.data.data[0]}`;
+                  resUser.profile_photo_url = `http://cab9ea95b77f.ngrok.io/storage/${res.data.data[0]}`;
                   storeData('userProfile', resUser).then(() => {
                     updateUserProfile();
                   });

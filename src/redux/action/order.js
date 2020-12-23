@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import {API_HOST} from '../../config';
 import {getData, showMessage} from '../../utils';
+import {setLoading} from './global';
 
 export const getOrders = () => (dispatch) => {
   getData('token').then((resToken) => {
@@ -11,9 +12,11 @@ export const getOrders = () => (dispatch) => {
     })
       .then((res) => {
         dispatch({type: 'SET_ORDER', value: res.data.data.data});
+        dispatch(setLoading(false));
       })
       .catch((err) => {
         showMessage(err?.response?.message || 'Terjadi Kesalahan');
+        dispatch(setLoading(false));
       });
   });
 };

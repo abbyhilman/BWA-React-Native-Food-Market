@@ -2,18 +2,22 @@ import Axios from 'axios';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useDispatch} from 'react-redux';
 import {FoodDummy} from '../../assets';
 import {Button, Gap, Header, ItemListFood, ItemValue} from '../../components';
 import {API_HOST} from '../../config';
+import {setLoading} from '../../redux/action';
 import {getData, showMessage} from '../../utils';
 
 const OrderDetail = ({navigation, route}) => {
   const order = route.params;
+  const dispatch = useDispatch();
 
   const onCancel = () => {
     const data = {
       status: 'CANCELLED',
     };
+    dispatch(setLoading(true));
     getData('token').then((resToken) => {
       Axios.post(`${API_HOST.url}/transaction/${order.id}`, data, {
         headers: {
@@ -22,6 +26,7 @@ const OrderDetail = ({navigation, route}) => {
       })
         .then((res) => {
           //console.log('succes cancel order: ', res);
+          dispatch(setLoading(false));
           navigation.reset({
             index: 0,
             routes: [{name: 'MainApp'}],
@@ -30,6 +35,7 @@ const OrderDetail = ({navigation, route}) => {
         .catch((err) => {
           //console.log(err);
           showMessage(err?.response?.message || 'Terjadi Kesalahan');
+          dispatch(setLoading(false));
         });
     });
   };
@@ -37,8 +43,8 @@ const OrderDetail = ({navigation, route}) => {
     <View>
       <ScrollView>
         <Header
-          title="Payment"
-          subTitle="You deserve better meal"
+          title="Order Summary"
+          subTitle="This your order"
           onBack={() => navigation.goBack()}
         />
         <View style={styles.content}>

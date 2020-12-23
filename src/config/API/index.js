@@ -1,3 +1,3 @@
 export const API_HOST = {
-  url: 'http://bb6bc0b12621.ngrok.io/foodmarket_react_native/public/api',
+  url: 'http://cab9ea95b77f.ngrok.io/api',
 };

@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFoodDataByTypes} from '../../../redux/action/home';
 import {FoodDummy} from '../../../assets';
+import {setLoading} from '../../../redux/action';
 
 const renderTabBar = (props) => (
   <TabBar
@@ -31,6 +32,7 @@ const NewTaste = () => {
   const dispatch = useDispatch();
   const {newTaste} = useSelector((state) => state.homeReducer);
   useEffect(() => {
+    dispatch(setLoading(true));
     dispatch(getFoodDataByTypes('new_food'));
   }, [dispatch]);
   return (
@@ -42,8 +44,8 @@ const NewTaste = () => {
             type="product"
             name={item.name}
             price={item.price}
-            // image={{uri: item.picturePath}}
-            image={FoodDummy}
+            image={{uri: item.picturePath}}
+            //image={FoodDummy}
             rating={item.rate}
             onPress={() => navigation.navigate('FoodDetail', item)}
           />
@@ -58,6 +60,7 @@ const Popular = () => {
   const dispatch = useDispatch();
   const {popular} = useSelector((state) => state.homeReducer);
   useEffect(() => {
+    dispatch(setLoading(true));
     dispatch(getFoodDataByTypes('popular'));
   }, [dispatch]);
   return (
@@ -69,8 +72,8 @@ const Popular = () => {
             type="product"
             name={item.name}
             price={item.price}
-            // image={{uri: item.picturePath}}
-            image={FoodDummy}
+            image={{uri: item.picturePath}}
+            //image={FoodDummy}
             rating={item.rate}
             onPress={() => navigation.navigate('FoodDetail', item)}
           />
@@ -84,6 +87,7 @@ const Recommended = () => {
   const dispatch = useDispatch();
   const {recommended} = useSelector((state) => state.homeReducer);
   useEffect(() => {
+    dispatch(setLoading(true));
     dispatch(getFoodDataByTypes('recommended'));
   }, [dispatch]);
   return (
@@ -95,8 +99,8 @@ const Recommended = () => {
             type="product"
             name={item.name}
             price={item.price}
-            // image={{uri: item.picturePath}}
-            image={FoodDummy}
+            image={{uri: item.picturePath}}
+            //image={FoodDummy}
             rating={item.rate}
             onPress={() => navigation.navigate('FoodDetail', item)}
           />
