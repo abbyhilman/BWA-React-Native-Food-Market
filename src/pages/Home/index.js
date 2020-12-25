@@ -1,24 +1,56 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {Alert, RefreshControl, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {FoodDummy} from '../../assets';
 import {Gap, Foodcard, HomeTabSection, HomeProfile} from '../../components';
 import {getFoodData, setLoading} from '../../redux/action';
+import Geolocation from '@react-native-community/geolocation';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {food} = useSelector((state) => state.homeReducer);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getFoodData());
+    Geolocation.getCurrentPosition(
+      (position) => {
+        dispatch({type: 'SET_MAPS', value: position.coords});
+      },
+      (error) => {
+        Alert.alert('Error', JSON.stringify(error));
+      },
+      {enableHighAccuracy: true, timeout: 1000},
+    );
   }, [dispatch]);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    dispatch(getFoodData());
+    wait(2000).then(() => setRefreshing(false));
+  }, [dispatch]);
+
   return (
     <View style={styles.page}>
       <HomeProfile />
       <View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              enabled={true}
+            />
+          }>
           <View style={styles.foodCardContainer}>
             <Gap width={24} />
             {food.map((itemFood) => {
@@ -26,7 +58,6 @@ const Home = ({navigation}) => {
                 <Foodcard
                   key={itemFood.id}
                   image={{uri: itemFood.picturePath}}
-                  //image={FoodDummy}
                   text={itemFood.name}
                   rating={itemFood.rate}
                   onPress={() => navigation.navigate('FoodDetail', itemFood)}
@@ -37,9 +68,7 @@ const Home = ({navigation}) => {
         </ScrollView>
       </View>
       <View style={styles.tabContainer}>
-        <ScrollView>
-          <HomeTabSection />
-        </ScrollView>
+        <HomeTabSection />
       </View>
     </View>
   );

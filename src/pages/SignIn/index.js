@@ -4,6 +4,9 @@ import {Button, Gap, Header, TextInput} from '../../components';
 import {useForm} from '../../utils';
 import {useDispatch} from 'react-redux';
 import {signInAction} from '../../redux/action/auth';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+
+MapboxGL.requestAndroidLocationPermissions();
 
 const SignIn = ({navigation}) => {
   const [form, setForm] = useForm({

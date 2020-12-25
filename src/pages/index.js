@@ -11,6 +11,9 @@ import OrderSummary from './OrderSummary';
 import SuccessOrder from './SuccessOrder';
 import OrderDetail from './OrderDetail';
 import EditProfile from './EditProfile';
+import FoodMaps from './FoodMaps';
+import FoodSearch from './FoodSearch';
+import FoodBaskets from './FoodBaskets';
 
 export {
   Splashscreen,
@@ -26,4 +29,7 @@ export {
   SuccessOrder,
   OrderDetail,
   EditProfile,
+  FoodMaps,
+  FoodSearch,
+  FoodBaskets,
 };

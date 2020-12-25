@@ -44,7 +44,10 @@ const OrderSummary = ({navigation, route}) => {
           setPaymentURL(res.data.data.payment_url);
         })
         .catch((err) => {
-          showMessage(err?.response?.message || 'Terjadi Kesalahan');
+          //console.log('chechkout err: ', JSON.stringify(err.response, null, 4));
+          showMessage(
+            err?.response?.data?.data?.message || 'Terjadi Kesalahan',
+          );
           dispatch(setLoading(false));
         });
     });

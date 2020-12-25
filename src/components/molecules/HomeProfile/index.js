@@ -1,8 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, Linking} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Picture} from '../../../assets';
-import {getData} from '../../../utils';
+import {getData, showMessage} from '../../../utils';
 
 const HomeProfile = () => {
   const navigation = useNavigation();
@@ -14,13 +15,24 @@ const HomeProfile = () => {
       });
     });
   }, [navigation]);
+  const handleClick = () => {
+    Linking.canOpenURL(photo.uri).then((supported) => {
+      if (supported) {
+        Linking.openURL(photo.uri);
+      } else {
+        showMessage('Tidak dapat membuka photo');
+      }
+    });
+  };
   return (
     <View style={styles.profileContainer}>
       <View>
         <Text style={styles.appName}>FoodMarket</Text>
         <Text style={styles.desc}>Let’s get some foods</Text>
       </View>
-      <Image source={photo} style={styles.profile} />
+      <TouchableOpacity onPress={handleClick}>
+        <Image source={photo} style={styles.profile} />
+      </TouchableOpacity>
     </View>
   );
 };

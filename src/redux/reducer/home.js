@@ -32,3 +32,17 @@ export const homeReducer = (state = initHome, action) => {
   }
   return state;
 };
+
+const initMaps = {
+  coordinate: [{}],
+};
+
+export const mapsReducer = (state = initMaps, action) => {
+  if (action.type === 'SET_MAPS') {
+    return {
+      ...state,
+      coordinate: action.value,
+    };
+  }
+  return state;
+};

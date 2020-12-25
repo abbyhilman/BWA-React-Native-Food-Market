@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import {registerReducer, photoReducer} from './auth';
 import {globalReducer} from './global';
-import {homeReducer} from './home';
+import {homeReducer, mapsReducer} from './home';
 import {orderReducer} from './order';
 
 const reducer = combineReducers({
@@ -10,6 +10,7 @@ const reducer = combineReducers({
   photoReducer,
   homeReducer,
   orderReducer,
+  mapsReducer,
 });
 
 export default reducer;

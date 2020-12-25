@@ -15,6 +15,9 @@ import {
   SuccessOrder,
   OrderDetail,
   EditProfile,
+  FoodMaps,
+  FoodSearch,
+  FoodBaskets,
 } from '../pages';
 import {BottomNavigator} from '../components';
 
@@ -25,7 +28,9 @@ const MainApp = () => {
   return (
     <Tab.Navigator tabBar={(props) => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Search" component={FoodSearch} />
       <Tab.Screen name="Order" component={Order} />
+      <Tab.Screen name="Keranjang" component={FoodBaskets} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
@@ -87,6 +92,11 @@ const Router = () => {
       <Stack.Screen
         name="EditProfile"
         component={EditProfile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FoodMaps"
+        component={FoodMaps}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

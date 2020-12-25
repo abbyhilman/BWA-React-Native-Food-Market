@@ -1,12 +1,17 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
-
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  RefreshControl,
+  ScrollView,
+} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {ItemListFood} from '..';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFoodDataByTypes} from '../../../redux/action/home';
-import {FoodDummy} from '../../../assets';
 import {setLoading} from '../../../redux/action';
 
 const renderTabBar = (props) => (
@@ -31,27 +36,50 @@ const NewTaste = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {newTaste} = useSelector((state) => state.homeReducer);
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getFoodDataByTypes('new_food'));
   }, [dispatch]);
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    dispatch(getFoodDataByTypes('new_food'));
+    wait(2000).then(() => setRefreshing(false));
+  }, [dispatch]);
+
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {newTaste.map((item) => {
-        return (
-          <ItemListFood
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            image={{uri: item.picturePath}}
-            //image={FoodDummy}
-            rating={item.rate}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          enabled={true}
+        />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {newTaste.map((item) => {
+          return (
+            <ItemListFood
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              image={{uri: item.picturePath}}
+              rating={item.rate}
+              onPress={() => navigation.navigate('FoodDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -59,54 +87,99 @@ const Popular = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {popular} = useSelector((state) => state.homeReducer);
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getFoodDataByTypes('popular'));
   }, [dispatch]);
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    dispatch(getFoodDataByTypes('popular'));
+    wait(2000).then(() => setRefreshing(false));
+  }, [dispatch]);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {popular.map((item) => {
-        return (
-          <ItemListFood
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            image={{uri: item.picturePath}}
-            //image={FoodDummy}
-            rating={item.rate}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          enabled={true}
+        />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {popular.map((item) => {
+          return (
+            <ItemListFood
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              image={{uri: item.picturePath}}
+              //image={FoodDummy}
+              rating={item.rate}
+              onPress={() => navigation.navigate('FoodDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 const Recommended = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {recommended} = useSelector((state) => state.homeReducer);
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getFoodDataByTypes('recommended'));
   }, [dispatch]);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    dispatch(getFoodDataByTypes('new_food'));
+    wait(2000).then(() => setRefreshing(false));
+  }, [dispatch]);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {recommended.map((item) => {
-        return (
-          <ItemListFood
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            image={{uri: item.picturePath}}
-            //image={FoodDummy}
-            rating={item.rate}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          enabled={true}
+        />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {recommended.map((item) => {
+          return (
+            <ItemListFood
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              image={{uri: item.picturePath}}
+              //image={FoodDummy}
+              rating={item.rate}
+              onPress={() => navigation.navigate('FoodDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 

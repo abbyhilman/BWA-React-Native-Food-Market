@@ -11,6 +11,10 @@ import IcBackWhite from './ic_back_white.svg';
 import IcButtonAdd from './ic_btn_add.svg';
 import IcButtonMin from './ic_btn_min.svg';
 import IcArrowSilver from './ic_arrow_silver.svg';
+import IcDeliveryOn from './ic_delivery.svg';
+import IcDeliveryOff from './ic_delivery_white.svg';
+import IcSearchOn from './ic_search.svg';
+import IcSearchOff from './ic_search_white.svg';
 
 export {
   IcBack,
@@ -26,4 +30,8 @@ export {
   IcButtonAdd,
   IcButtonMin,
   IcArrowSilver,
+  IcDeliveryOn,
+  IcDeliveryOff,
+  IcSearchOn,
+  IcSearchOff,
 };

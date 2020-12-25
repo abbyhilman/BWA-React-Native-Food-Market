@@ -48,6 +48,7 @@ const ItemListFood = ({
         );
       case 'in-progress':
         // item in-progress
+        var formatedDate = moment.unix(date).format('MMM D Y, h:mm a');
         return (
           <>
             <View style={styles.content}>
@@ -57,6 +58,10 @@ const ItemListFood = ({
                 <View style={styles.dot} />
                 <Number number={price} style={styles.price} />
               </View>
+            </View>
+            <View>
+              <Text style={styles.date}>{formatedDate}</Text>
+              <Text style={styles.status(status)}>{status}</Text>
             </View>
           </>
         );

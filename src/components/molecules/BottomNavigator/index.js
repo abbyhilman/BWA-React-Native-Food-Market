@@ -1,12 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {
+  IcDeliveryOff,
+  IcDeliveryOn,
   IcHome,
   IcHomeOff,
   IcOrder,
   IcOrderOff,
   IcProfile,
   IcProfileOff,
+  IcSearchOff,
+  IcSearchOn,
 } from '../../../assets';
 
 const Icon = ({label, focus}) => {
@@ -14,9 +18,13 @@ const Icon = ({label, focus}) => {
     case 'Home':
       return focus ? <IcHome /> : <IcHomeOff />;
     case 'Order':
-      return focus ? <IcOrder /> : <IcOrderOff />;
+      return focus ? <IcDeliveryOn /> : <IcDeliveryOff />;
     case 'Profile':
       return focus ? <IcProfile /> : <IcProfileOff />;
+    case 'Search':
+      return focus ? <IcSearchOn /> : <IcSearchOff />;
+    case 'Keranjang':
+      return focus ? <IcOrder /> : <IcOrderOff />;
     default:
       return <IcHomeOff />;
   }

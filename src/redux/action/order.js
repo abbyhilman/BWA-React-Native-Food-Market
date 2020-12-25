@@ -29,11 +29,6 @@ export const getInProgress = () => (dispatch) => {
           Authorization: resToken.value,
         },
       }),
-      Axios.get(`${API_HOST.url}/transaction?status=SUCCESS`, {
-        headers: {
-          Authorization: resToken.value,
-        },
-      }),
       Axios.get(`${API_HOST.url}/transaction?status=ON_DELIVERY`, {
         headers: {
           Authorization: resToken.value,
@@ -41,17 +36,17 @@ export const getInProgress = () => (dispatch) => {
       }),
     ])
       .then(
-        Axios.spread((res1, res2, res3) => {
-          const pending = res1.data.data.data;
-          const success = res2.data.data.data;
-          const onDelivery = res3.data.data.data;
+        Axios.spread((res1, res2) => {
+          const Pending = res1.data.data.data;
+          const onDelivery = res2.data.data.data;
           dispatch({
             type: 'SET_IN_PROGRESS',
-            value: [...pending, ...success, ...onDelivery],
+            value: [...Pending, ...onDelivery],
           });
         }),
       )
       .catch((err) => {
+        console.log('InProgress Err: ', JSON.stringify(err, null, 4));
         showMessage(err?.response?.message || 'Terjadi Kesalahan');
       });
   });
@@ -70,14 +65,20 @@ export const getPastOrders = () => (dispatch) => {
           Authorization: resToken.value,
         },
       }),
+      Axios.get(`${API_HOST.url}/transaction?status=SUCCESS`, {
+        headers: {
+          Authorization: resToken.value,
+        },
+      }),
     ])
       .then(
-        Axios.spread((res1, res2) => {
+        Axios.spread((res1, res2, res3) => {
           const cancelled = res1.data.data.data;
           const delivered = res2.data.data.data;
+          const success = res3.data.data.data;
           dispatch({
             type: 'SET_PAST_ORDERS',
-            value: [...cancelled, ...delivered],
+            value: [...cancelled, ...delivered, ...success],
           });
         }),
       )

@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {FoodDummy, IcBackWhite} from '../../assets';
+import {useSelector} from 'react-redux';
+import {IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../components';
 import {getData} from '../../utils';
+import {getPreciseDistance, convertDistance} from 'geolib';
 
 const FoodDetail = ({navigation, route}) => {
   const {
@@ -24,6 +26,8 @@ const FoodDetail = ({navigation, route}) => {
   const [totalItem, setTotalIteam] = useState(1);
   const [userProfile, setUserProfile] = useState({});
 
+  const {coordinate} = useSelector((state) => state.mapsReducer);
+
   useEffect(() => {
     getData('userProfile').then((res) => {
       setUserProfile(res);
@@ -33,6 +37,11 @@ const FoodDetail = ({navigation, route}) => {
   const onCounterChange = (value) => {
     setTotalIteam(value);
   };
+
+  const calculatePreciseDistance = getPreciseDistance(
+    {latitude: coordinate.latitude, longitude: coordinate.longitude},
+    {latitude: -6.1237135, longitude: 106.8768418},
+  );
 
   const onOrder = () => {
     const totalPrice = totalItem * price;
@@ -80,6 +89,14 @@ const FoodDetail = ({navigation, route}) => {
             <Text style={styles.desc}>{description}</Text>
             <Text style={styles.label}>Ingredients:</Text>
             <Text style={styles.desc}>{ingredients}</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('FoodMaps', coordinate)}>
+              <Text style={styles.label}>Food Store Maps</Text>
+            </TouchableOpacity>
+            <Text style={styles.desc}>
+              Distance with you location:{' '}
+              {convertDistance(calculatePreciseDistance, 'km')} KM
+            </Text>
           </View>
         </ScrollView>
 

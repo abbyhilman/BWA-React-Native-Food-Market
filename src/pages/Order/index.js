@@ -21,9 +21,7 @@ const Order = () => {
         <View style={styles.content}>
           <Header title="Your Orders" subTitle="Wait for the best meal" />
           <View style={styles.OrdertabContainer}>
-            <ScrollView>
-              <OrderTabSection />
-            </ScrollView>
+            <OrderTabSection />
           </View>
         </View>
       )}

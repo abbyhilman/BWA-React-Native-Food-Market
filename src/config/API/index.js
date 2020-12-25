@@ -1,3 +1,3 @@
 export const API_HOST = {
-  url: 'http://cab9ea95b77f.ngrok.io/api',
+  url: 'http://0f864640ef0c.ngrok.io/api',
 };

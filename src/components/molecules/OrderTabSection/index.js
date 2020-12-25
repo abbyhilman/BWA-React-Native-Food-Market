@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, Dimensions, RefreshControl} from 'react-native';
+import {Text, View, Dimensions, RefreshControl, ScrollView} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {ItemListFood} from '..';
-import {FoodDummy} from '../../../assets';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getInProgress, getPastOrders} from '../../../redux/action';
-import {ScrollView} from 'react-native-gesture-handler';
 
 const renderTabBar = (props) => (
   <TabBar
@@ -42,7 +40,11 @@ const InProgress = () => {
   const dispatch = useDispatch();
   const {inProgress} = useSelector((state) => state.orderReducer);
   const [refreshing, setRefreshing] = useState(false);
-
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
   useEffect(() => {
     dispatch(getInProgress());
   }, [dispatch]);
@@ -50,11 +52,12 @@ const InProgress = () => {
   const onRefresh = () => {
     setRefreshing(true);
     dispatch(getInProgress());
-    setRefreshing(false);
+    wait(2000).then(() => setRefreshing(false));
   };
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
@@ -64,8 +67,9 @@ const InProgress = () => {
             <ItemListFood
               key={order.id}
               image={{uri: order.food.picturePath}}
-              //image={FoodDummy}
               type="in-progress"
+              date={order.created_at}
+              status={order.status}
               price={order.total}
               items={order.quantity}
               name={order.food.name}
@@ -83,16 +87,22 @@ const PastOrders = () => {
   const dispatch = useDispatch();
   const {pastOrders} = useSelector((state) => state.orderReducer);
   const [refreshing, setRefreshing] = useState(false);
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
   useEffect(() => {
     dispatch(getPastOrders());
   }, [dispatch]);
   const onRefresh = () => {
     setRefreshing(true);
     dispatch(getPastOrders());
-    setRefreshing(false);
+    wait(2000).then(() => setRefreshing(false));
   };
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
@@ -108,7 +118,6 @@ const PastOrders = () => {
               name={order.food.name}
               items={order.quantity}
               image={{uri: order.food.picturePath}}
-              //image={FoodDummy}
               onPress={() => navigation.navigate('OrderDetail', order)}
             />
           );
