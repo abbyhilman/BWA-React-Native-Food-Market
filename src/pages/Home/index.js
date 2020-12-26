@@ -1,10 +1,11 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {Alert, RefreshControl, StyleSheet, View} from 'react-native';
+import {RefreshControl, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {Gap, Foodcard, HomeTabSection, HomeProfile} from '../../components';
 import {getFoodData, setLoading} from '../../redux/action';
 import Geolocation from '@react-native-community/geolocation';
+import {showMessage} from '../../utils';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -19,9 +20,9 @@ const Home = ({navigation}) => {
         dispatch({type: 'SET_MAPS', value: position.coords});
       },
       (error) => {
-        Alert.alert('Error', JSON.stringify(error));
+        showMessage(error.message);
       },
-      {enableHighAccuracy: true, timeout: 1000},
+      {enableHighAccuracy: false, timeout: 1000},
     );
   }, [dispatch]);
 

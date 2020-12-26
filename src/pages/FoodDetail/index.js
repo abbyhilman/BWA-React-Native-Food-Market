@@ -69,7 +69,10 @@ const FoodDetail = ({navigation, route}) => {
   };
   return (
     <View style={styles.page}>
-      <ImageBackground source={{uri: picturePath}} style={styles.cover}>
+      <ImageBackground
+        source={{uri: picturePath}}
+        style={styles.cover}
+        resizeMode="stretch">
         <TouchableOpacity
           style={styles.back}
           onPress={() => navigation.goBack()}>
@@ -104,6 +107,9 @@ const FoodDetail = ({navigation, route}) => {
           <View style={styles.priceContainer}>
             <Text style={styles.labelTotal}>Total Price:</Text>
             <Number number={totalItem * price} style={styles.priceTotal} />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button text="Keranjang" onPress={onOrder} />
           </View>
           <View style={styles.buttonContainer}>
             <Button text="Order Now" onPress={onOrder} />
@@ -175,7 +181,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonContainer: {
-    width: 163,
+    width: 115,
+    marginHorizontal: 10,
   },
   labelTotal: {
     fontSize: 13,
