@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {EmptyOrder, Header, OrderTabSection} from '../../components';
 import {getOrders, setLoading} from '../../redux/action';

@@ -13,6 +13,7 @@ import ProfileTabSection from './ProfileTabSection';
 import ItemListMenu from './ItemListMenu';
 import Loading from './Loading';
 import Number from './Number';
+import EmptyBaskets from './EmptyBaskets';
 
 export {
   Header,
@@ -30,4 +31,5 @@ export {
   ItemListMenu,
   Loading,
   Number,
+  EmptyBaskets,
 };

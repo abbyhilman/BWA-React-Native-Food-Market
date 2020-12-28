@@ -49,8 +49,6 @@ const Account = () => {
         onPress={() => navigation.navigate('EditProfile')}
       />
       <ItemListMenu text="Home Address" onPress={() => {}} />
-      <ItemListMenu text="Security" onPress={() => {}} />
-      <ItemListMenu text="Payments" onPress={() => {}} />
       <ItemListMenu text="Sign Out" onPress={signOut} />
     </View>
   );
@@ -62,8 +60,6 @@ const FoodMarket = () => {
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ItemListMenu text="Rate App" onPress={() => {}} />
       <ItemListMenu text="Help Center" onPress={() => {}} />
-      <ItemListMenu text="Privacy & Policy" onPress={() => {}} />
-      <ItemListMenu text="Terms & Conditions" onPress={() => {}} />
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {
   IcDeliveryOff,
   IcDeliveryOn,
@@ -12,26 +12,52 @@ import {
   IcSearchOff,
   IcSearchOn,
 } from '../../../assets';
-
-const Icon = ({label, focus}) => {
-  switch (label) {
-    case 'Home':
-      return focus ? <IcHome /> : <IcHomeOff />;
-    case 'Order':
-      return focus ? <IcDeliveryOn /> : <IcDeliveryOff />;
-    case 'Profile':
-      return focus ? <IcProfile /> : <IcProfileOff />;
-    case 'Search':
-      return focus ? <IcSearchOn /> : <IcSearchOff />;
-    case 'Keranjang':
-      return focus ? <IcOrder /> : <IcOrderOff />;
-    default:
-      return <IcHomeOff />;
-  }
-};
+import {Badge} from 'react-native-elements';
+import {useSelector} from 'react-redux';
 
 const BottomNavigator = ({state, descriptors, navigation}) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
+  const {cart} = useSelector((state) => state.cartReducer);
+  //const {baskets} = useSelector((state) => state.countReducer);
+
+  const Icon = ({label, focus}) => {
+    switch (label) {
+      case 'Home':
+        return focus ? <IcHome /> : <IcHomeOff />;
+      case 'Order':
+        return focus ? <IcDeliveryOn /> : <IcDeliveryOff />;
+      case 'Profile':
+        return focus ? <IcProfile /> : <IcProfileOff />;
+      case 'Search':
+        return focus ? <IcSearchOn /> : <IcSearchOff />;
+      case 'Keranjang':
+        return focus ? (
+          <View style={styles.iconRow}>
+            <IcOrder />
+            {cart < 1 ? null : (
+              <Badge
+                value={1}
+                status="error"
+                containerStyle={styles.badgeStyle}
+              />
+            )}
+          </View>
+        ) : (
+          <View style={styles.iconRow}>
+            <IcOrderOff />
+            {cart < 1 ? null : (
+              <Badge
+                value={1}
+                status="error"
+                containerStyle={styles.badgeStyle}
+              />
+            )}
+          </View>
+        );
+      default:
+        return <IcHomeOff />;
+    }
+  };
 
   if (focusedOptions.tabBarVisible === false) {
     return null;
@@ -97,4 +123,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     justifyContent: 'space-between',
   },
+  badgeStyle: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+  },
+  iconRow: {flexDirection: 'row'},
 });

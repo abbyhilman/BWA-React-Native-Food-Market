@@ -46,7 +46,6 @@ export const getInProgress = () => (dispatch) => {
         }),
       )
       .catch((err) => {
-        console.log('InProgress Err: ', JSON.stringify(err, null, 4));
         showMessage(err?.response?.message || 'Terjadi Kesalahan');
       });
   });
@@ -85,5 +84,30 @@ export const getPastOrders = () => (dispatch) => {
       .catch((err) => {
         showMessage(err?.response?.message || 'Terjadi Kesalahan');
       });
+  });
+};
+export const fetchProducts = () => (dispatch) => {
+  getData('foodCart').then((res) => {
+    dispatch({
+      type: 'SET_BASKETS',
+      value: res,
+    });
+  });
+};
+export const addToCart = (item) => (dispatch) => {
+  dispatch({
+    type: 'ADD_TO_CART',
+    value: item,
+  });
+};
+export const removeItem = (item) => (dispatch) => {
+  dispatch({
+    type: 'REMOVE_CART',
+    value: item,
+  });
+};
+export const emptyCart = () => (dispatch) => {
+  dispatch({
+    type: 'EMPTY_CART',
   });
 };

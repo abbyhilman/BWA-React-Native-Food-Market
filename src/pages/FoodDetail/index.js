@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../components';
-import {getData} from '../../utils';
+import {getData, storeData} from '../../utils';
 import {getPreciseDistance, convertDistance} from 'geolib';
+import {addToCart} from '../../redux/action';
 
 const FoodDetail = ({navigation, route}) => {
   const {
@@ -25,6 +26,7 @@ const FoodDetail = ({navigation, route}) => {
   } = route.params;
   const [totalItem, setTotalIteam] = useState(1);
   const [userProfile, setUserProfile] = useState({});
+  const dispatch = useDispatch();
 
   const {coordinate} = useSelector((state) => state.mapsReducer);
 
@@ -66,6 +68,34 @@ const FoodDetail = ({navigation, route}) => {
     };
     //console.log('data for checkout', JSON.stringify(data, null, 4));
     navigation.navigate('OrderSummary', data);
+  };
+  const onBasket = () => {
+    const totalPrice = totalItem * price;
+    const driver = 50000;
+    const tax = (10 / 100) * totalPrice;
+    const total = totalPrice + driver + tax;
+    const data = {
+      item: {
+        id,
+        name,
+        price,
+        picturePath,
+      },
+      transaction: {
+        totalItem,
+        totalPrice,
+        driver,
+        tax,
+        total,
+      },
+      userProfile,
+    };
+    storeData('foodCart', data);
+    dispatch(addToCart(data));
+    //dispatch({type: 'SET_BASKETS', value: data.item});
+    navigation.replace('MainApp', {
+      screen: 'Keranjang',
+    });
   };
   return (
     <View style={styles.page}>
@@ -109,7 +139,7 @@ const FoodDetail = ({navigation, route}) => {
             <Number number={totalItem * price} style={styles.priceTotal} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button text="Keranjang" onPress={onOrder} />
+            <Button text="Keranjang" onPress={onBasket} />
           </View>
           <View style={styles.buttonContainer}>
             <Button text="Order Now" onPress={onOrder} />
