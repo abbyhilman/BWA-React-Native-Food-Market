@@ -25,8 +25,8 @@ const Profile = ({navigation}) => {
     launchImageLibrary(
       {
         mediaType: 'photo',
-        maxWidth: 200,
-        maxHeight: 200,
+        maxWidth: 450,
+        maxHeight: 450,
         quality: 0.7,
       },
       (response) => {
@@ -51,7 +51,7 @@ const Profile = ({navigation}) => {
             })
               .then((res) => {
                 getData('userProfile').then((resUser) => {
-                  resUser.profile_photo_url = `http://e65446e71ee9.ngrok.io/storage/${res.data.data[0]}`;
+                  resUser.profile_photo_url = `http://84d48b8bda06.ngrok.io/storage/${res.data.data[0]}`;
                   storeData('userProfile', resUser).then(() => {
                     updateUserProfile();
                   });

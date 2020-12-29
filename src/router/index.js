@@ -18,6 +18,7 @@ import {
   FoodMaps,
   FoodSearch,
   FoodBaskets,
+  ProfileImage,
 } from '../pages';
 import {BottomNavigator} from '../components';
 
@@ -97,6 +98,11 @@ const Router = () => {
       <Stack.Screen
         name="FoodMaps"
         component={FoodMaps}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ProfileImage"
+        component={ProfileImage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

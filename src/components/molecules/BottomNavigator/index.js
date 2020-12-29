@@ -17,7 +17,7 @@ import {useSelector} from 'react-redux';
 
 const BottomNavigator = ({state, descriptors, navigation}) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
-  const {cart} = useSelector((state) => state.cartReducer);
+  const {count} = useSelector((state) => state.cartReducer);
   //const {baskets} = useSelector((state) => state.countReducer);
 
   const Icon = ({label, focus}) => {
@@ -34,9 +34,9 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
         return focus ? (
           <View style={styles.iconRow}>
             <IcOrder />
-            {cart < 1 ? null : (
+            {count < 1 ? null : (
               <Badge
-                value={1}
+                value={count}
                 status="error"
                 containerStyle={styles.badgeStyle}
               />
@@ -45,9 +45,9 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
         ) : (
           <View style={styles.iconRow}>
             <IcOrderOff />
-            {cart < 1 ? null : (
+            {count < 1 ? null : (
               <Badge
-                value={1}
+                value={count}
                 status="error"
                 containerStyle={styles.badgeStyle}
               />

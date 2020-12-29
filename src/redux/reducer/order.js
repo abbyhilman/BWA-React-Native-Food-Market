@@ -43,14 +43,20 @@ export const countReducer = (state = initProduct, action) => {
 const iniCart = {
   cart: [],
   total: 0,
+  count: 0,
 };
 
 export const cartReducer = (state = iniCart, action) => {
+  //let carts = [...state, action.value];
+  //console.log('ADD_TO_CART', action.value, state.cart, state.total);
   if (action.type === 'ADD_TO_CART') {
     return {
       ...state,
-      cart: [action.value, ...state.cart],
-      total: state.total + action.value.transaction.totalPrice,
+      cart: [...state.cart, action.value],
+      total: action.value.totalPrice,
+      count: action.value.totalItem,
+      //total: state.total + action.value.totalPrice,
+      //count: state.count + action.value.totalItem,
     };
   }
   if (action.type === 'EMPTY_CART') {
@@ -58,13 +64,22 @@ export const cartReducer = (state = iniCart, action) => {
       ...state,
       cart: [],
       total: 0,
+      count: 0,
     };
   }
   if (action.type === 'REMOVE_CART') {
+    //console.log('REMOVE_REDUCER', action.value, state.cart, state.total);
     return {
       ...state,
-      cart: state.cart.filter((item) => item.id !== action.value.id),
-      total: state.total - action.value.totalPrice,
+      // cart: [
+      //   state.cart.filter((item) => item.id !== action.value),
+      //   state.cart.slice(action.value + 1),
+      // ],
+      cart: state.cart.filter((item) => item.id !== action.value),
+      total: action.value.totalPrice,
+      count: action.value.totalItem,
+      // total: state.total - action.value.totalPrice,
+      // count: state.count - action.value.totalItem,
     };
   }
   return state;

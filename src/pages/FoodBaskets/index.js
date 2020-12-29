@@ -1,6 +1,5 @@
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, {useEffect} from 'react';
+import {StyleSheet, View, Text, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   Button,
@@ -9,60 +8,51 @@ import {
   ItemListFood,
   Number,
 } from '../../components';
-import Swipeout from 'react-native-swipeout';
+// import Swipeout from 'react-native-swipeout';
 import {removeItem} from '../../redux/action';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 const FoodBaskets = () => {
   const {cart, total} = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
-  //console.log(JSON.stringify(cart, null, 4));
+  console.log(JSON.stringify(cart, null, 4));
+  console.log(JSON.stringify(total, null, 4));
 
-  var swipeoutBtns = [
-    {
-      text: 'Delete',
-      backgroundColor: 'red',
-      onPress: () => {
-        dispatch(removeItem(cart));
-      },
-      type: 'delete',
-      component: (
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-          }}>
-          <Icon name="trash" size={30} color="#900" />
-        </View>
-      ),
-    },
-  ];
+  // var swipeoutBtns = [
+  //   {
+  //     text: 'Delete',
+  //     backgroundColor: 'red',
+  //     onPress: () => {
+  //       dispatch(removeItem(item.id));
+  //     },
+  //     type: 'delete',
+  //     component: (
+  //       <View style={styles.badge}>
+  //         <Icon name="trash" size={30} color="#900" />
+  //       </View>
+  //     ),
+  //   },
+  // ];
   return (
     <View style={styles.page}>
-      {cart < 1 ? (
-        <EmptyBaskets />
-      ) : (
+      {cart.length !== 0 ? (
         <View style={styles.content}>
           <Header title="Your Baskets" subTitle="Order your food" />
           <View style={styles.OrdertabContainer}>
-            <ScrollView>
-              {cart.map((carts) => {
-                return (
-                  <Swipeout right={swipeoutBtns} autoClose="true">
-                    <ItemListFood
-                      type="order-summary"
-                      key={carts.item.id}
-                      name={carts.item.name}
-                      price={carts.transaction.totalPrice}
-                      items={carts.transaction.totalItem}
-                      image={{uri: carts.item.picturePath}}
-                    />
-                  </Swipeout>
-                );
-              })}
-            </ScrollView>
+            <FlatList
+              data={cart}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({item}) => (
+                <ItemListFood
+                  type="order-summary"
+                  name={item.name}
+                  price={item.totalPrice}
+                  items={item.totalItem}
+                  image={{uri: item.picturePath}}
+                  onPress={() => dispatch(removeItem(item.id))}
+                />
+              )}
+            />
           </View>
           <View style={styles.footer}>
             <View style={styles.priceContainer}>
@@ -74,6 +64,8 @@ const FoodBaskets = () => {
             </View>
           </View>
         </View>
+      ) : (
+        <EmptyBaskets />
       )}
     </View>
   );
@@ -129,5 +121,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Poppins-Medium',
     color: '#020202',
+  },
+  badge: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
 });

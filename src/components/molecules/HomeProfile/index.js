@@ -15,22 +15,22 @@ const HomeProfile = () => {
       });
     });
   }, [navigation]);
-  const handleClick = () => {
-    Linking.canOpenURL(photo.uri).then((supported) => {
-      if (supported) {
-        Linking.openURL(photo.uri);
-      } else {
-        showMessage('Tidak dapat membuka photo');
-      }
-    });
-  };
+  // const handleClick = () => {
+  //   Linking.canOpenURL(photo.uri).then((supported) => {
+  //     if (supported) {
+  //       Linking.openURL(photo.uri);
+  //     } else {
+  //       showMessage('Tidak dapat membuka photo');
+  //     }
+  //   });
+  // };
   return (
     <View style={styles.profileContainer}>
       <View>
         <Text style={styles.appName}>FoodMarket</Text>
         <Text style={styles.desc}>Let’s get some foods</Text>
       </View>
-      <TouchableOpacity onPress={handleClick}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProfileImage')}>
         <Image source={photo} style={styles.profile} />
       </TouchableOpacity>
     </View>

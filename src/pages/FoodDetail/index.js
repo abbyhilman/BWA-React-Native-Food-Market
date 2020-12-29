@@ -75,22 +75,18 @@ const FoodDetail = ({navigation, route}) => {
     const tax = (10 / 100) * totalPrice;
     const total = totalPrice + driver + tax;
     const data = {
-      item: {
-        id,
-        name,
-        price,
-        picturePath,
-      },
-      transaction: {
-        totalItem,
-        totalPrice,
-        driver,
-        tax,
-        total,
-      },
+      id,
+      name,
+      price,
+      picturePath,
+      totalItem,
+      totalPrice,
+      driver,
+      tax,
+      total,
       userProfile,
     };
-    storeData('foodCart', data);
+    //storeData('foodCart', data);
     dispatch(addToCart(data));
     //dispatch({type: 'SET_BASKETS', value: data.item});
     navigation.replace('MainApp', {
