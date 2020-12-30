@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import {Text, View, Dimensions} from 'react-native';
+import {Text, View, Dimensions, Alert} from 'react-native';
 
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {ItemListMenu} from '..';
@@ -38,9 +38,25 @@ const renderTabBar = (props) => (
 const Account = () => {
   const navigation = useNavigation();
   const signOut = () => {
-    AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
-      navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
-    });
+    Alert.alert(
+      'Sign out',
+      'Are you sure for exit ?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () =>
+            AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
+              navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+            }),
+        },
+      ],
+      {cancelable: false},
+    );
   };
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
@@ -49,6 +65,7 @@ const Account = () => {
         onPress={() => navigation.navigate('EditProfile')}
       />
       <ItemListMenu text="Home Address" onPress={() => {}} />
+      <ItemListMenu text="Payment" onPress={() => {}} />
       <ItemListMenu text="Sign Out" onPress={signOut} />
     </View>
   );

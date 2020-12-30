@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, View, Text, FlatList} from 'react-native';
+import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   Button,
@@ -8,31 +8,41 @@ import {
   ItemListFood,
   Number,
 } from '../../components';
-// import Swipeout from 'react-native-swipeout';
+import Swipeout from 'react-native-swipeout';
 import {removeItem} from '../../redux/action';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const FoodBaskets = () => {
+const FoodBaskets = ({navigation}) => {
   const {cart, total} = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
-  console.log(JSON.stringify(cart, null, 4));
-  console.log(JSON.stringify(total, null, 4));
+  //console.log(JSON.stringify(cart, null, 4));
+  //console.log(JSON.stringify(total, null, 4));
 
-  // var swipeoutBtns = [
-  //   {
-  //     text: 'Delete',
-  //     backgroundColor: 'red',
-  //     onPress: () => {
-  //       dispatch(removeItem(item.id));
-  //     },
-  //     type: 'delete',
-  //     component: (
-  //       <View style={styles.badge}>
-  //         <Icon name="trash" size={30} color="#900" />
-  //       </View>
-  //     ),
-  //   },
-  // ];
+  const onOrder = () => {
+    {
+      cart.map((res) => {
+        const data = {
+          item: {
+            id: res.id,
+            name: res.name,
+            price: res.price,
+            picturePath: res.picturePath,
+          },
+          transaction: {
+            totalItem: res.totalItem,
+            totalPrice: res.totalPrice,
+            driver: res.driver,
+            tax: res.tax,
+          },
+          userProfile: res.userProfile,
+          total: total,
+        };
+        navigation.navigate('OrderSummary', data);
+      });
+    }
+  };
+  //console.log('data for checkout', JSON.stringify(data, null, 4));
+
   return (
     <View style={styles.page}>
       {cart.length !== 0 ? (
@@ -41,16 +51,33 @@ const FoodBaskets = () => {
           <View style={styles.OrdertabContainer}>
             <FlatList
               data={cart}
-              keyExtractor={(item) => item.id.toString()}
+              keyExtractor={(item, index) => item.id.toString()}
               renderItem={({item}) => (
-                <ItemListFood
-                  type="order-summary"
-                  name={item.name}
-                  price={item.totalPrice}
-                  items={item.totalItem}
-                  image={{uri: item.picturePath}}
-                  onPress={() => dispatch(removeItem(item.id))}
-                />
+                <Swipeout
+                  right={[
+                    {
+                      component: (
+                        <TouchableOpacity
+                          onPress={() => dispatch(removeItem(item))}
+                          style={styles.deleteIconContainer}>
+                          <Icon name="trash" size={28} color="#F05829" />
+                        </TouchableOpacity>
+                      ),
+                      backgroundColor: '#fff',
+                    },
+                  ]}
+                  autoClose={true}
+                  backgroundColor="transparent"
+                  buttonWidth={96}>
+                  <ItemListFood
+                    type="order-summary"
+                    name={item.name}
+                    price={item.totalPrice}
+                    items={item.totalItem}
+                    image={{uri: item.picturePath}}
+                    //onPress={() => dispatch(removeItem(item))}
+                  />
+                </Swipeout>
               )}
             />
           </View>
@@ -60,7 +87,7 @@ const FoodBaskets = () => {
               <Number number={total} style={styles.priceTotal} />
             </View>
             <View style={styles.buttonContainer}>
-              <Button text="Order Now" onPress={() => {}} />
+              <Button text="Order Now" onPress={onOrder} />
             </View>
           </View>
         </View>
@@ -127,5 +154,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+  },
+  deleteIconContainer: {
+    flex: 1,
+    borderLeftColor: '#000',
+    borderLeftWidth: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginLeft: 48,
   },
 });

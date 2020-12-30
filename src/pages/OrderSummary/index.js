@@ -12,15 +12,17 @@ import {
   Loading,
 } from '../../components';
 import {API_HOST} from '../../config';
-import {getData, showMessage} from '../../utils';
+import {getData, showMessage, storeData} from '../../utils';
 import {WebView} from 'react-native-webview';
 import {setLoading} from '../../redux/action/global';
+import {emptyCart} from '../../redux/action';
 
 const OrderSummary = ({navigation, route}) => {
-  const {item, transaction, userProfile} = route.params;
+  const {item, transaction, userProfile, total} = route.params;
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [paymentURL, setPaymentURL] = useState('https://buildwithangga.com');
   const dispatch = useDispatch();
+  //console.log(item);
 
   const onCheckout = () => {
     dispatch(setLoading(true));
@@ -28,7 +30,7 @@ const OrderSummary = ({navigation, route}) => {
       food_id: item.id,
       user_id: userProfile.id,
       quantity: transaction.totalItem,
-      total: transaction.total,
+      total: transaction.total || total,
       status: 'PENDING',
     };
     getData('token').then((resToken) => {
@@ -42,6 +44,7 @@ const OrderSummary = ({navigation, route}) => {
           setIsPaymentOpen(true);
           dispatch(setLoading(false));
           setPaymentURL(res.data.data.payment_url);
+          storeData('Payment', paymentURL);
         })
         .catch((err) => {
           //console.log('chechkout err: ', JSON.stringify(err.response, null, 4));
@@ -51,10 +54,11 @@ const OrderSummary = ({navigation, route}) => {
           dispatch(setLoading(false));
         });
     });
+    dispatch(emptyCart());
   };
 
   const onNavChange = (state) => {
-    //console.log('nav', state);
+    console.log('nav', state);
     //const urlSuccess = 'http://aa44934e770b.ngrok.io/foodmarket_react_native/public/midtrans/success?order_id=9&status_code=201&transaction_status=pending';
     const titleWeb = 'Laravel';
     if (state.title === titleWeb) {
@@ -103,7 +107,7 @@ const OrderSummary = ({navigation, route}) => {
         <ItemValue label="Tax 10%" value={transaction.tax} type="currency" />
         <ItemValue
           label="Total Price"
-          value={transaction.total}
+          value={transaction.total || total}
           valueColor="#1ABC9C"
           type="currency"
         />
