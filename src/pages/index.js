@@ -15,6 +15,7 @@ import FoodMaps from './FoodMaps';
 import FoodSearch from './FoodSearch';
 import FoodBaskets from './FoodBaskets';
 import ProfileImage from './ProfileImage';
+import ProfileAddress from './ProfileAddress';
 
 export {
   Splashscreen,
@@ -34,4 +35,5 @@ export {
   FoodSearch,
   FoodBaskets,
   ProfileImage,
+  ProfileAddress,
 };

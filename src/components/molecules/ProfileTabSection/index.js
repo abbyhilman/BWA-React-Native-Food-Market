@@ -64,8 +64,10 @@ const Account = () => {
         text="Edit Profile"
         onPress={() => navigation.navigate('EditProfile')}
       />
-      <ItemListMenu text="Home Address" onPress={() => {}} />
-      <ItemListMenu text="Payment" onPress={() => {}} />
+      <ItemListMenu
+        text="Home Address"
+        onPress={() => navigation.navigate('ProfileAddress')}
+      />
       <ItemListMenu text="Sign Out" onPress={signOut} />
     </View>
   );

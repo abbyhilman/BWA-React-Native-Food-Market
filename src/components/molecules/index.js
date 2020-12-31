@@ -14,6 +14,7 @@ import ItemListMenu from './ItemListMenu';
 import Loading from './Loading';
 import Number from './Number';
 import EmptyBaskets from './EmptyBaskets';
+import AddressCard from './AddressCard';
 
 export {
   Header,
@@ -32,4 +33,5 @@ export {
   Loading,
   Number,
   EmptyBaskets,
+  AddressCard,
 };

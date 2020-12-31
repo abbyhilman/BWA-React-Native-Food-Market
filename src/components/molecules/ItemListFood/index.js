@@ -21,6 +21,7 @@ const ItemListFood = ({
   name,
   date,
   status,
+  disabled,
 }) => {
   const renderContent = () => {
     switch (type) {
@@ -98,7 +99,7 @@ const ItemListFood = ({
     }
   };
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress} disabled={disabled}>
       <View style={styles.container}>
         <Image source={image} style={styles.image} />
         {renderContent()}

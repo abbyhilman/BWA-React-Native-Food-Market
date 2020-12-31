@@ -75,6 +75,7 @@ const FoodBaskets = ({navigation}) => {
                     price={item.totalPrice}
                     items={item.totalItem}
                     image={{uri: item.picturePath}}
+                    disabled={true}
                     //onPress={() => dispatch(removeItem(item))}
                   />
                 </Swipeout>

@@ -58,8 +58,9 @@ const OrderSummary = ({navigation, route}) => {
   };
 
   const onNavChange = (state) => {
-    console.log('nav', state);
-    //const urlSuccess = 'http://aa44934e770b.ngrok.io/foodmarket_react_native/public/midtrans/success?order_id=9&status_code=201&transaction_status=pending';
+    ///console.log('nav', state);
+    //const urlSuccess = `${paymentURL}/select-payment`;
+    //const urlSuccess = 'https://app.sandbox.midtrans.com/snap/v2/vtweb/934d7eba-9f1e-402f-ab1a-8155ec89bac9';
     const titleWeb = 'Laravel';
     if (state.title === titleWeb) {
       navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});
