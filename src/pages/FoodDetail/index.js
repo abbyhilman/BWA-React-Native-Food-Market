@@ -13,6 +13,23 @@ import {Button, Counter, Number, Rating} from '../../components';
 import {getData, storeData} from '../../utils';
 import {getPreciseDistance, convertDistance} from 'geolib';
 import {addToCart} from '../../redux/action';
+import PushNotification from 'react-native-push-notification';
+
+const LocalNotification = () => {
+  PushNotification.localNotification({
+    autoCancel: true,
+    bigText:
+      'This is local notification demo in React Native app. Only shown, when expanded.',
+    subText: 'Local Notification Demo',
+    title: 'Local Notification Title',
+    message: 'Expand me to see more',
+    vibrate: true,
+    vibration: 300,
+    playSound: true,
+    soundName: 'default',
+    actions: '["Yes", "No"]',
+  });
+};
 
 const FoodDetail = ({navigation, route}) => {
   const {
@@ -135,7 +152,7 @@ const FoodDetail = ({navigation, route}) => {
             <Number number={totalItem * price} style={styles.priceTotal} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button text="Keranjang" onPress={onBasket} />
+            <Button text="Keranjang" onPress={LocalNotification()} />
           </View>
           <View style={styles.buttonContainer}>
             <Button text="Order Now" onPress={onOrder} />

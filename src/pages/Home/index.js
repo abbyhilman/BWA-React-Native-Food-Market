@@ -11,6 +11,7 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {food} = useSelector((state) => state.homeReducer);
   const [refreshing, setRefreshing] = useState(false);
+  //console.log(food);
 
   useEffect(() => {
     dispatch(setLoading(true));

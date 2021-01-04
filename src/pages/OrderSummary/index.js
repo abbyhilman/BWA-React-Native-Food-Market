@@ -30,7 +30,7 @@ const OrderSummary = ({navigation, route}) => {
       food_id: item.id,
       user_id: userProfile.id,
       quantity: transaction.totalItem,
-      total: transaction.total || total,
+      total: transaction.total || transaction.total + total,
       status: 'PENDING',
     };
     getData('token').then((resToken) => {
@@ -108,7 +108,7 @@ const OrderSummary = ({navigation, route}) => {
         <ItemValue label="Tax 10%" value={transaction.tax} type="currency" />
         <ItemValue
           label="Total Price"
-          value={transaction.total || total}
+          value={transaction.total || transaction.total + total}
           valueColor="#1ABC9C"
           type="currency"
         />

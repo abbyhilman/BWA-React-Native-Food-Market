@@ -23,7 +23,7 @@ export const signUpAction = (dataRegister, photoReducer, navigation) => (
           },
         })
           .then((res) => {
-            profile.profile_photo_url = `http://d71d58f8c3fb.ngrok.io/storage/${res.data.data[0]}`;
+            profile.profile_photo_url = `http://f838a35724f8.ngrok.io/storage/${res.data.data[0]}`;
             storeData('userProfile', profile);
             navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
             //console.log('photo success', JSON.stringify(res, null, 4));
