@@ -152,7 +152,7 @@ const FoodDetail = ({navigation, route}) => {
             <Number number={totalItem * price} style={styles.priceTotal} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button text="Keranjang" onPress={LocalNotification()} />
+            <Button text="Keranjang" onPress={onBasket} />
           </View>
           <View style={styles.buttonContainer}>
             <Button text="Order Now" onPress={onOrder} />

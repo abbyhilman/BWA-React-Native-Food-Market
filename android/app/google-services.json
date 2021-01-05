@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "647583144069",
+    "project_id": "food-market-bwa",
+    "storage_bucket": "food-market-bwa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647583144069:android:6ca0d1affb311d657031ec",
+        "android_client_info": {
+          "package_name": "com.foodmarketrn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647583144069-737vtn69o58aurlk38or260o3es78kh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNJuuXDXDfVI9si27DRMasxtCkHkP3J1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647583144069-737vtn69o58aurlk38or260o3es78kh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
