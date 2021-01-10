@@ -42,7 +42,7 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.page}>
       <HomeProfile />
-      <View>
+      {/* <View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -68,7 +68,7 @@ const Home = ({navigation}) => {
             })}
           </View>
         </ScrollView>
-      </View>
+      </View> */}
       <View style={styles.tabContainer}>
         <HomeTabSection />
       </View>

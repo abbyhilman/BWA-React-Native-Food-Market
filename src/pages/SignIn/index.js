@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
-import {useForm} from '../../utils';
+import {showMessage, useForm} from '../../utils';
 import {useDispatch} from 'react-redux';
 import {signInAction} from '../../redux/action/auth';
 import {
@@ -35,11 +35,12 @@ const SignIn = ({navigation}) => {
       {token, parameters: PROFILE_REQUEST_PARAMS},
       (error, user) => {
         if (error) {
-          console.log('login info has error: ' + error);
+          //console.log('login info has error: ' + error);
+          showMessage(error);
         } else {
           setUserinfo(user);
-          setUserPhoto(user.picture);
-          console.log('result:', user);
+          setUserPhoto(user.picture.data);
+          //console.log('result:', user);
         }
       },
     );
@@ -84,9 +85,11 @@ const SignIn = ({navigation}) => {
             publishPermissions={['publish_actions']}
             onLoginFinished={(error, result) => {
               if (error) {
-                console.log('login has error: ' + result.error);
+                //console.log('login has error: ' + result.error);
+                showMessage(result.error);
               } else if (result.isCancelled) {
-                console.log('login is cancelled.');
+                //console.log('login is cancelled.');
+                showMessage('login is cancelled.');
               } else {
                 AccessToken.getCurrentAccessToken().then((data) => {
                   const accessToken = data.accessToken.toString();
@@ -106,7 +109,7 @@ const SignIn = ({navigation}) => {
                 alignItems: 'center',
               }}>
               <Image
-                source={{uri: userPhoto.data.url}}
+                source={{uri: userPhoto.url}}
                 style={{width: 50, height: 50, borderRadius: 50 / 2}}
               />
               <Text style={{fontSize: 16, marginVertical: 16}}>

@@ -15,6 +15,7 @@ import IcDeliveryOn from './ic_car.svg';
 import IcDeliveryOff from './ic_car_off.svg';
 import IcSearchOn from './ic_search.svg';
 import IcSearchOff from './ic_search_off.svg';
+import IcAdd from './ic_add.svg';
 
 export {
   IcBack,
@@ -34,4 +35,5 @@ export {
   IcDeliveryOff,
   IcSearchOn,
   IcSearchOff,
+  IcAdd,
 };

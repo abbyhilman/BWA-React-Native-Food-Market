@@ -37,6 +37,7 @@ const NewTaste = () => {
   const dispatch = useDispatch();
   const {newTaste} = useSelector((state) => state.homeReducer);
   const [refreshing, setRefreshing] = useState(false);
+  const [food, setFood] = useState({});
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -54,6 +55,12 @@ const NewTaste = () => {
     wait(2000).then(() => setRefreshing(false));
   }, [dispatch]);
 
+  const toBasket = () => {
+    //setFood(item);
+    //console.log(food);
+    navigation.navigate('Keranjang');
+  };
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -69,12 +76,12 @@ const NewTaste = () => {
           return (
             <ItemListFood
               key={item.id}
-              type="product"
+              type="product-newtaste"
               name={item.name}
               price={item.price}
               image={{uri: item.picturePath}}
-              rating={item.rate}
               onPress={() => navigation.navigate('FoodDetail', item)}
+              Add={toBasket}
             />
           );
         })}
@@ -172,7 +179,6 @@ const Recommended = () => {
               name={item.name}
               price={item.price}
               image={{uri: item.picturePath}}
-              //image={FoodDummy}
               rating={item.rate}
               onPress={() => navigation.navigate('FoodDetail', item)}
             />

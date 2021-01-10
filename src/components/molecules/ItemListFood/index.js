@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Number, Rating} from '..';
+import {IcAdd} from '../../../assets';
 
 /*
 Type: 
@@ -22,6 +23,7 @@ const ItemListFood = ({
   date,
   status,
   disabled,
+  Add,
 }) => {
   const renderContent = () => {
     switch (type) {
@@ -34,6 +36,21 @@ const ItemListFood = ({
               <Number number={price} style={styles.price} />
             </View>
             <Rating number={rating} />
+          </>
+        );
+      case 'product-newtaste':
+        // item list product like in home page
+        return (
+          <>
+            <View style={styles.content}>
+              <Text style={styles.title}>{name}</Text>
+              <Number number={price} style={styles.price} />
+            </View>
+            <TouchableOpacity style={styles.circle} onPress={Add}>
+              <View style={styles.myButton}>
+                <IcAdd />
+              </View>
+            </TouchableOpacity>
           </>
         );
       case 'order-summary':
@@ -113,14 +130,20 @@ export default ItemListFood;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: 'white',
-    paddingVertical: 8,
+    backgroundColor: '#F6F7FB',
     alignItems: 'center',
+    width: 315,
+    height: 120,
+    borderRadius: 12,
+    overflow: 'hidden',
+    marginHorizontal: 20,
+    marginVertical: 10,
+    padding: 10,
   },
   image: {
     width: 60,
     height: 60,
-    borderRadius: 8,
+    borderRadius: 60 / 2,
     overflow: 'hidden',
     marginRight: 12,
   },
@@ -160,5 +183,16 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: '#8D92A3',
     marginHorizontal: 4,
+  },
+  circle: {
+    marginBottom: -40,
+  },
+  myButton: {
+    height: 36,
+    width: 36,
+    borderRadius: 36 / 2,
+    backgroundColor: '#FFC700',
+    alignItems: 'center',
+    padding: 10,
   },
 });
