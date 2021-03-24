@@ -51,7 +51,7 @@ const Profile = ({navigation}) => {
             })
               .then((res) => {
                 getData('userProfile').then((resUser) => {
-                  resUser.profile_photo_url = `http://597e104beea6.ngrok.io/storage/${res.data.data[0]}`;
+                  resUser.profile_photo_url = `http://10.0.2.2:8000/storage/${res.data.data[0]}`;
                   storeData('userProfile', resUser).then(() => {
                     updateUserProfile();
                   });
